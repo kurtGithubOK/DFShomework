@@ -12,11 +12,11 @@ class App extends Component {
           <h1 className="App-title">Donnelley Financial Services - Pomodoro Timer</h1>
           <h1 className="App-title">Kurt Heimerman</h1>
         </header>
-        <p className="App-intro">
+        <div className="App-intro">
           <TimerControls/>
           <PomodoroStatus/>
           <Tasks/>
-        </p>
+        </div>
       </div>
     );
   }
