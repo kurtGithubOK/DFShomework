@@ -5,34 +5,35 @@ class Tasks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: [],
-      newTaskText: ''
+      tasks: [{description: 'initial', completed: true}],
+      newTaskDescription: ''
     };
   }
 
-  checkboxClicked = (taskId) => {
-    console.log('Checkbox clicked!:', taskId);
+  checkboxClicked = (event) => {
+    const { tasks } = this.state;
+    console.log('Checkbox clicked!:', event.target.id);
+    console.log('desc:', tasks[event.target.id].description);
 
   }
 
   newTaskTextChanged = (event) => {
     this.setState({
-      newTaskText: event.target.value
+      newTaskDescription: event.target.value
     });
   }
 
-  addButtonClicked = () => {
-    const newTaskText = this.state.newTaskText;
-    const newTask = {text: newTaskText, completed: false}
-    const newTasks = this.state.tasks.push(newTask);
+  addTaskButtonClicked = () => {
+    const { newTaskDescription, tasks } = this.state;
+    const newTask = {description: newTaskDescription, completed: false}
+    const newTasks = tasks.concat(newTask);
     this.setState({
       tasks: newTasks
     });
-    console.log('after adding', ...this.state.tasks)
   }
 
   render() {
-    console.log('in render()', this.state.tasks[0])
+    const { tasks } = this.state;
     return (
         <div>
           <div>Tasks:</div>
@@ -43,20 +44,22 @@ class Tasks extends React.Component {
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>Do task #1</td><td><input type="checkbox" onClick={() => this.checkboxClicked(1)}/></td>
-            </tr>
-            <tr>
-              <td>Do task #2</td><th><input type="checkbox"/></th>
-            </tr>
+            {
+              tasks.map( (task, i) =>
+               <tr key={i}>
+                 <td>{task.description}</td>
+                 <td><input id={i} type="checkbox" onClick={this.checkboxClicked}/></td>
+               </tr>
+              )
+            }
             </tbody>
           </table>
 
           <table>
             <tbody>
             <tr>
-              <td><input type="text" value={this.state.newTaskText} onChange={this.newTaskTextChanged}/></td>
-              <td><input type="button" value="Add" onClick={this.addButtonClicked}/></td>
+              <td><input type="text" value={this.state.newTaskDescription} onChange={this.newTaskTextChanged}/></td>
+              <td><input type="button" value="Add" onClick={this.addTaskButtonClicked}/></td>
             </tr>
             </tbody>
           </table>

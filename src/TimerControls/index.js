@@ -8,38 +8,47 @@ class TimerControls extends React.Component {
       timer: null
     }
   }
-  //const scheduledRender = setTimeout(this.pageRender, 100);
-  //clearTimeout(scheduledRender);
-
-  incrementElapsedTime = () => {
-    let newElapsedTime = this.state.elapsedTime + 1;
-    const timer = setTimeout(this.incrementElapsedTime, 1000);
-    this.setState({
-      elapsedTime: newElapsedTime,
-      timer
-    });
-
-  }
 
   startClicked = () => {
     console.log('Start clicked!');
-    const timer = setTimeout(this.incrementElapsedTime, 1000);
+//    const timer = setTimeout(this.incrementElapsedTime, 1000);
     // this.setState({
     //   timer
     // });
+//    this.scheduleNextTimeout();
+    this.incrementElapsedTime();
   }
 
   pauseClicked = () => {
     console.log('Pause clicked!');
-    clearTimeout(this.state.timer);
+    const { timer } = this.state;
+    clearTimeout(timer)
+    this.setState({
+      timer: null
+    });
   }
 
   stopClicked = () => {
     console.log('Stop clicked!');
+    const { timer } = this.state;
+    clearTimeout(timer)
     this.setState({
-//      timer: null,
+      timer: null,
       elapsedTime: 0
     });
+  }
+
+  // scheduleNextTimeout = () => {
+  //   const timer = setTimeout(this.incrementElapsedTime, 1000);
+  //   this.setState({ timer });
+  //   console.log('in sNT, just setstate')
+  // }
+
+  incrementElapsedTime = () => {
+    const elapsedTime = this.state.elapsedTime + 1;
+    const timer = setTimeout(this.incrementElapsedTime, 1000);
+    this.setState({ elapsedTime, timer });
+//    this.scheduleNextTimeout();
   }
 
   render() {
