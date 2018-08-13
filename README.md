@@ -18,7 +18,14 @@ To use:
     3) Note how status changes from Round #1 -> Break #1 -> Round #2 -> Break #2 -> etc. -> until time runs out.
     4) Check off completed tasks.
 
-
+To Dos:
+    1) Come up with better way of stopping timer.
+    2) Add more tests
+    3) Add task delete-ability
+    4) Add timer reset button so you don't have to refresh to start over.
+    5) Convert ProgressTracker to functional component.
+    6) Move segment data to componentWillMount()?
+    7) Not sure what checking task checkbox is supposed to actually do
 
 
 

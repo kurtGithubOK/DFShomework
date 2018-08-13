@@ -1,4 +1,14 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const TimerControlsWrapper = styled.div`
+  margin-left: 20px;
+  margin-top: 20px;
+`;
+
+const ButtonWrapper = styled.span`
+  margin-left: 50px;
+`;
 
 class TimerControls extends React.Component {
   constructor(props) {
@@ -10,27 +20,7 @@ class TimerControls extends React.Component {
     this.stopClicked = this.stopClicked.bind(this);
   }
 
-  startClicked = () => {
-    console.log('Start clicked!');
-//    const timer = setTimeout(this.incrementElapsedTime, 1000);
-    // this.setState({
-    //   timer
-    // });
-//    this.scheduleNextTimeout();
-    this.incrementElapsedTime();
-  }
-
-  pauseClicked = () => {
-    console.log('Pause clicked!');
-    const { timer } = this.state;
-    clearTimeout(timer)
-    this.setState({
-      timer: null
-    });
-  }
-
   stopClicked = () => {
-    console.log('Stop clicked!');
     const { timer } = this.state;
     clearTimeout(timer);
 
@@ -41,38 +31,29 @@ class TimerControls extends React.Component {
         elapsedTime: 0
       });
     } else {
-      alert("Pomodoro timer has expired.")
+      alert("Pomodoro timer has ended.")
     }
   }
 
-  // scheduleNextTimeout = () => {
-  //   const timer = setTimeout(this.incrementElapsedTime, 1000);
-  //   this.setState({ timer });
-  //   console.log('in sNT, just setstate')
-  // }
-
-  incrementElapsedTime = (props) => {
+  startClicked = (props) => {
     const { updateProgress } = this.props;
-//    const elapsedTime = this.state.elapsedTime + 1;
-    const timer = setTimeout(this.incrementElapsedTime, 1000);
-//    this.setState({ elapsedTime, timer });
+    const timer = setTimeout(this.startClicked, 1000);
     this.setState({ timer });
     updateProgress();
-//    this.scheduleNextTimeout();
   }
 
   render( props ) {
     const { stopTimer } = this.props;
+    const { timer } = this.state;
     if(stopTimer) {
       this.stopClicked();
     }
     return (
-      <div style={{marginLeft: '20px', marginTop: '20px'}}>
+      <TimerControlsWrapper>
         <div>Timer Controls:</div>
-        <span style={{marginLeft: '50px'}}><input type="button" value="start" onClick={this.startClicked}></input></span>
-        <span style={{marginLeft: '50px'}}><input type="button" value="pause" onClick={this.incrementElapsedTime}></input></span>
-        <span style={{marginLeft: '50px'}}><input type="button" value="stop" onClick={this.stopClicked}></input></span>
-      </div>
+        <ButtonWrapper><input type="button" value="start" disabled={timer} onClick={this.startClicked}></input></ButtonWrapper>
+        <ButtonWrapper><input type="button" value="stop" disabled={!timer} onClick={this.stopClicked}></input></ButtonWrapper>
+      </TimerControlsWrapper>
     );
   }
 

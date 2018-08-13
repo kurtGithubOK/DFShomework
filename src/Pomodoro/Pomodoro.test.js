@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import Pomodoro from './index';
 
-it('App renders without crashing', () => {
+it('Tasks renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
+  ReactDOM.render(<Pomodoro/>, div);
   ReactDOM.unmountComponentAtNode(div);
 });
+
+
+
