@@ -33,17 +33,31 @@ class Tasks extends React.Component {
   }
 
   render() {
-    const { tasks } = this.state;
+    const { tasks, newTaskDescription } = this.state;
     return (
-        <div>
-          <div>Tasks:</div>
-          <table>
-            <thead>
-            <tr>
-              <th>Description</th><th>Complete?</th>
-            </tr>
-            </thead>
-            <tbody>
+      <div style={{marginLeft: '20px', marginTop: '20px', height: '250px'}}>
+        <div>Tasks:</div>
+        <div style={{marginLeft: '40px', width: '50%', float: 'left'}}>Description:</div><div style={{width: '40%', float: 'left'}}>Complete:</div>
+
+        {
+          tasks.map( (task, i) =>
+              <div key={i}>
+                <div style={{marginLeft: '40px', width: '50%', float: 'left'}}>{task.description}</div>
+                <div style={{width: '40%', float: 'left'}}><input id={i} type="checkbox" onClick={this.checkboxClicked}/></div>
+              </div>
+          )
+        }
+
+        <div style={{marginLeft: '40px', width: '50%', float: 'left'}}><input type="text" value={newTaskDescription} onChange={this.newTaskTextChanged}/></div>
+        <div style={{width: '40%', float: 'left'}}><input type="button" value="Add Task" onClick={this.addTaskButtonClicked}/></div>
+      </div>
+
+    );
+  }
+}
+
+export default Tasks;
+/*
             {
               tasks.map( (task, i) =>
                <tr key={i}>
@@ -52,20 +66,8 @@ class Tasks extends React.Component {
                </tr>
               )
             }
-            </tbody>
-          </table>
-
-          <table>
-            <tbody>
-            <tr>
               <td><input type="text" value={this.state.newTaskDescription} onChange={this.newTaskTextChanged}/></td>
               <td><input type="button" value="Add" onClick={this.addTaskButtonClicked}/></td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-    );
-  }
-}
 
-export default Tasks;
+ */
+

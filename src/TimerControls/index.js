@@ -7,6 +7,7 @@ class TimerControls extends React.Component {
       elapsedTime: 0,
       timer: null
     }
+    this.stopClicked = this.stopClicked.bind(this);
   }
 
   startClicked = () => {
@@ -31,11 +32,17 @@ class TimerControls extends React.Component {
   stopClicked = () => {
     console.log('Stop clicked!');
     const { timer } = this.state;
-    clearTimeout(timer)
-    this.setState({
-      timer: null,
-      elapsedTime: 0
-    });
+    clearTimeout(timer);
+
+    const { stopTimer } = this.props;
+    if(!stopTimer) {
+      this.setState({
+        timer: null,
+        elapsedTime: 0
+      });
+    } else {
+      alert("Pomodoro timer has expired.")
+    }
   }
 
   // scheduleNextTimeout = () => {
@@ -44,21 +51,27 @@ class TimerControls extends React.Component {
   //   console.log('in sNT, just setstate')
   // }
 
-  incrementElapsedTime = () => {
-    const elapsedTime = this.state.elapsedTime + 1;
+  incrementElapsedTime = (props) => {
+    const { updateProgress } = this.props;
+//    const elapsedTime = this.state.elapsedTime + 1;
     const timer = setTimeout(this.incrementElapsedTime, 1000);
-    this.setState({ elapsedTime, timer });
+//    this.setState({ elapsedTime, timer });
+    this.setState({ timer });
+    updateProgress();
 //    this.scheduleNextTimeout();
   }
 
-  render() {
-    console.log('elapsedTime:', this.state.elapsedTime)
+  render( props ) {
+    const { stopTimer } = this.props;
+    if(stopTimer) {
+      this.stopClicked();
+    }
     return (
-      <div>
+      <div style={{marginLeft: '20px', marginTop: '20px'}}>
         <div>Timer Controls:</div>
-        <span><input type="button" value="start" onClick={this.startClicked}></input></span>
-        <span><input type="button" value="pause" onClick={this.incrementElapsedTime}></input></span>
-        <span><input type="button" value="stop" onClick={this.stopClicked}></input></span>
+        <span style={{marginLeft: '50px'}}><input type="button" value="start" onClick={this.startClicked}></input></span>
+        <span style={{marginLeft: '50px'}}><input type="button" value="pause" onClick={this.incrementElapsedTime}></input></span>
+        <span style={{marginLeft: '50px'}}><input type="button" value="stop" onClick={this.stopClicked}></input></span>
       </div>
     );
   }

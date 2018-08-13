@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import TimerControls from './TimerControls';
-import PomodoroStatus from './PomodoroStatus';
-import Tasks from './Tasks';
+import Pomodoro from './Pomodoro';
 
 class App extends Component {
   render() {
@@ -13,9 +11,7 @@ class App extends Component {
           <h1 className="App-title">Kurt Heimerman</h1>
         </header>
         <div className="App-intro">
-          <TimerControls/>
-          <PomodoroStatus/>
-          <Tasks/>
+          <Pomodoro/>
         </div>
       </div>
     );

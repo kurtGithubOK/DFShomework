@@ -1,15 +1,22 @@
-DFS Homework - Pomodoro Timer
+DFS Homework - Pomodoro Timer - Kurt Heimerman
 
 To Download:
-    git clone xxxxx
+    git clone https://github.com/kurtGithubOK/DFShomework.git
 
-To download dependencies:
+To install dependencies:
     npm install
+
+To run tests:
+    yarn test
 
 To run:
     yarn start
 
-
+To use:
+    1) Add some tasks
+    2) Click 'Start'
+    3) Note how status changes from Round #1 -> Break #1 -> Round #2 -> Break #2 -> etc. -> until time runs out.
+    4) Check off completed tasks.
 
 
 
